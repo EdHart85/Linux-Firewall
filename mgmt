@@ -1,0 +1,19 @@
+##############################################################################################
+#                       STANDARD FIREWALL SCRIPT
+#
+#       Developed by: Eduardo Hartmann (https://github.com/EdHart85)
+#
+#       Licensed under the GNU General Public License v3.0
+#
+##############################################################################################
+
+echo -e "  $LIGHTGREEN-Setting management rules..."
+
+# Allow ping from anywhere
+$IPTABLES -A INPUT -s $ALL -p icmp --icmp-type 8 -j ACCEPT
+
+# SSH access (adjust it according to your needs)
+echo -e "  $LIGHTGREEN--SSH"
+$IPTABLES -A INPUT -s 192.0.2.0/24 -p tcp --dport 22 -j ACCEPT   # SSH
+
+echo -e " $GREEN* OK"
