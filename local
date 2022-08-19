@@ -1,0 +1,12 @@
+##############################################################################################
+#                       STANDARD FIREWALL SCRIPT
+#
+#       Developed by: Eduardo Hartmann (https://github.com/EdHart85)
+#
+#       Licensed under the GNU General Public License v3.0
+#
+##############################################################################################
+
+# Remember to customize this setting according to your server
+IFACE="ens192"
+LAN_BCAST_ADRESS="10.0.1.255"
