@@ -1,0 +1,191 @@
+#!/bin/bash
+
+##############################################################################################
+#                       STANDARD FIREWALL SCRIPT
+#       Developed by:
+#               Eduardo Hartmann (https://github.com/EdHart85)
+#
+#       Novo Hamburgo-RS, Brazil  -  August/2022
+#
+##############################################################################################
+
+# SCRIPT VERSION - Remember to update this number every time this script is altered.
+# Format: YYYYMMDDSQ
+# Where:
+# YYYY  = Year
+# MM    = Month
+# DD    = Day
+# SQ    = Sequential number
+FWVERSION="2022081901"
+
+#--------------------------------VARIABLES----------------------------------------------------
+
+# Iptables binary
+IPTABLES=`whereis -b iptables | cut -d ' ' -f2`
+
+# Loopback interface
+IFACE_LO="lo"
+
+# Loopback IP range according to RFC 5735
+LO_IP="127.0.0.0/8"
+
+# Anywhere
+ALL="0.0.0.0/0"
+
+# Local services rules file
+SERVICES_SCRIPT="/etc/firewall/services"
+
+# Management rules file
+MGMT_SCRIPT="/etc/firewall/mgmt"
+
+# Local parameters file
+LOCAL_PARAM="/etc/firewall/local"
+
+#--------------------------------COLORS--------------------------------------------------------
+NOCOLOR='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHTGRAY='\033[0;37m'
+DARKGRAY='\033[1;30m'
+LIGHTRED='\033[1;31m'
+LIGHTGREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+LIGHTBLUE='\033[1;34m'
+LIGHTPURPLE='\033[1;35m'
+LIGHTCYAN='\033[1;36m'
+WHITE='\033[1;37m'
+
+#---------------------------------------------------------------------------------------------
+
+HELP() {
+        echo -e " * Firewall\nUsage: firewall [option]\n\nOPTIONS:\nstart   - Create set of iptables rules according to scripts in /etc/firewall.\nstop    - Deletes all iptables rules, 'stoping' the firewall. Obs: Be careful! This will set the default action to 'ACCEPT ALL'!\nrestart - Deletes all iptables rules, zeroing the counters, and then recreates them according to scripts in /etc/firewall.\nstatus  - Show all iptables rules.\nversion - Shows this script version number\nhelp    - Show this information."
+}
+
+VERSION() {
+        echo -n $FWVERSION
+}
+
+STATUS() {
+        echo -e "$CYAN * Linux Firewall"
+        echo -n " * Version: "
+        VERSION
+        echo ""
+        $IPTABLES -L -n -v
+}
+
+CLEAN(){
+        # Clears any iptables rules that may exist
+        $IPTABLES -F
+        $IPTABLES -t nat -F
+        $IPTABLES -t mangle -F
+
+        $IPTABLES -X
+        $IPTABLES -t nat -X
+        $IPTABLES -t mangle -X
+}
+
+
+STOP() {
+        echo -e " $CYAN* Stopping firewall..."
+
+        # Clears any iptables rules that may exist
+        CLEAN
+
+        # Set default behavior to accept all traffic
+        $IPTABLES -P INPUT ACCEPT
+        $IPTABLES -P FORWARD ACCEPT
+        $IPTABLES -P OUTPUT ACCEPT
+
+        echo -e " $CYAN* OK"
+}
+
+START() {
+        echo -e " $GREEN* Starting firewall..."
+
+        # Checks if the file containing services rules exists
+        if [ ! -f $SERVICES_SCRIPT ]; then
+                echo -e "$RED ERROR! File 'services' could not be found!"
+                echo -e "$NOCOLOR"
+                exit 1
+        fi
+
+        # Checks if the file containing management rules exists
+        if [ ! -f $MGMT_SCRIPT ]; then
+                echo -e "$RED ERROR! File 'mgmt' could not be found!"
+                echo -e "$NOCOLOR"
+                exit 1
+        fi
+
+        # Checks if the file containing local parameters exists
+        if [ ! -f $LOCAL_PARAM ]; then
+                echo -e "$RED ERROR! File 'local' could not be found!"
+                echo -e "$NOCOLOR"
+                exit 1
+        fi
+
+        # ========== INITIALIZATION ==========
+
+        echo -e "  $LIGHTGREEN-Setting local parameters..."
+
+        # Load local parameters from file
+        source $LOCAL_PARAM
+
+        # Set default policy for each chain
+        $IPTABLES -P INPUT DROP
+        $IPTABLES -P FORWARD DROP
+        $IPTABLES -P OUTPUT DROP
+
+        # Clears any iptables rules that may exist
+        CLEAN
+
+        # Drops invalid packets
+        $IPTABLES -A INPUT -j DROP -m state --state INVALID
+
+        # Allow keeping of established connections
+        $IPTABLES -A INPUT -p ALL -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+        # Allows broadcast
+        $IPTABLES -A INPUT -p ALL -i $IFACE -d $LAN_BCAST_ADRESS -j ACCEPT
+
+        # Allow loopback traffic
+        $IPTABLES -A INPUT -p ALL -i $IFACE_LO -s $LO_IP -j ACCEPT
+
+        # Allows output traffic without restrictions. You may restric this according to your needs.
+        $IPTABLES -A OUTPUT -p ALL -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+        $IPTABLES -A OUTPUT -p ALL -s $LO_IP -j ACCEPT
+
+        # Management rules specific for this server
+        source $MGMT_SCRIPT
+
+        # Local services rules
+        source $SERVICES_SCRIPT
+}
+
+case "$1" in
+        start)
+        START
+        ;;
+        stop)
+        STOP
+        ;;
+        restart)
+        STOP
+        START
+        ;;
+        status)
+        STATUS
+        ;;
+        version)
+        VERSION
+        ;;
+        *)
+        HELP
+        exit 1
+esac
+
+echo -e "$NOCOLOR"
+exit 0
