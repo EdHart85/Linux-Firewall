@@ -1,4 +1,6 @@
-<h1 align="center">Linux Firewall</h1>
+<h1 align="center">Linux 
+
+</h1>
 <p align="center">A simple but effective iptables script that offers basic protection to be used on Linux servers. I mean, it's better than nothing... ;)</p>
 
 <!--ts-->
@@ -8,6 +10,10 @@
   * [Debian 8](#debian-8)
   * [Debian 5, 6 and 7](#debian-5-6-and-7)
 <!--te-->
+
+<h2>Observations</h2>
+
+I developed this scripts for my own use where I work, that's why you'll see the word 'fwpmnh' instead of 'firewall'. I recommend you adjust it according to your enviroment.
 
 <h2>Prerequisites</h2>
 
@@ -26,27 +32,27 @@ Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything her
 
 -Create firewall scripts directory:
 ```bash
-# mkdir /etc/firewall
+# mkdir /etc/fwpmnh
 ```
 
 -Clone this git repository:
 ```bash
-# cd /etc/firewall
+# cd /etc/fwpmnh
 # git clone https://github.com/EdHart85/Linux-Firewall .
 ```
  
 -Adjust permissions:
 ```bash
-# chmod 750 /etc/firewall
-# chmod 750 /etc/firewall/firewall.sh
-# chmod 640 /etc/firewall/local
-# chmod 640 /etc/firewall/mgmt
-# chmod 640 /etc/firewall/services
+# chmod 750 /etc/fwpmnh
+# chmod 750 /etc/fwpmnh/fwpmnh.sh
+# chmod 640 /etc/fwpmnh/local
+# chmod 640 /etc/fwpmnh/mgmt
+# chmod 640 /etc/fwpmnh/services
 ```
 
  -Create symbolic link:
 ```bash
-# ln -s /etc/firewall/firewall.sh /usr/sbin/firewall
+# ln -s /etc/fwpmnh/fwpmnh.sh /usr/sbin/fwpmnh
 ```
 
 -Check your network interface name (Ex: ens192, eth0, etc) and broadcast address and then update the respective variable in the "local" file.
@@ -61,7 +67,7 @@ Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything her
 
 -Create systemd service file:
 ```bash
-# systemctl edit firewall.service --force --full
+# systemctl edit fwpmnh.service --force --full
 ```
 
 ```bash
@@ -76,9 +82,9 @@ Type=oneshot
 # Since there is no continous running process, this tells systemd to consider this service up once it has started
 RemainAfterExit=yes
 
-ExecStart=/bin/bash /etc/firewall/firewall.sh start
-ExecStop=/bin/bash /etc/firewall/firewall.sh stop
-ExecReload=/bin/bash /etc/firewall/firewall.sh restart
+ExecStart=/bin/bash /etc/fwpmnh/fwpmnh.sh start
+ExecStop=/bin/bash /etc/fwpmnh/fwpmnh.sh stop
+ExecReload=/bin/bash /etc/fwpmnh/fwpmnh.sh restart
 
 
 [Install]
@@ -87,9 +93,9 @@ WantedBy=multi-user.target
 
 -Enable and start the service:
 ```bash
-# systemctl enable firewall.service
-# systemctl start firewall.service
-# systemctl status firewall.service
+# systemctl enable fwpmnh.service
+# systemctl start fwpmnh.service
+# systemctl status fwpmnh.service
 ```
  
 
@@ -97,7 +103,7 @@ WantedBy=multi-user.target
 
 -Create systemd service file:
 ```bash
-# vi /lib/systemd/system/firewall.service
+# vi /lib/systemd/system/fwpmnh.service
 ```
 
 ```bash
@@ -112,9 +118,9 @@ Type=oneshot
 # Since there is no continous running process, this tells systemd to consider this service up once it has started
 RemainAfterExit=yes
 
-ExecStart=/bin/bash /etc/firewall/firewall.sh start
-ExecStop=/bin/bash /etc/firewall/firewall.sh stop
-ExecReload=/bin/bash /etc/firewall/firewall.sh restart
+ExecStart=/bin/bash /etc/fwpmnh/fwpmnh.sh start
+ExecStop=/bin/bash /etc/fwpmnh/fwpmnh.sh stop
+ExecReload=/bin/bash /etc/fwpmnh/fwpmnh.sh restart
 
 
 [Install]
@@ -123,9 +129,9 @@ WantedBy=multi-user.target
 
 -Enable and start the service:
 ```bash
-# systemctl enable firewall.service
-# systemctl start firewall.service
-# systemctl status firewall.service
+# systemctl enable fwpmnh.service
+# systemctl start fwpmnh.service
+# systemctl status fwpmnh.service
 ```
  
 
@@ -133,11 +139,11 @@ WantedBy=multi-user.target
 
 -Create a symbolic link:
 ```bash
-# ln -s /etc/firewall/firewall.sh /etc/init.d/firewall
+# ln -s /etc/fwpmnh/fwpmnh.sh /etc/init.d/fwpmnh
 ```
 
 -Enable and start the service:
 ```bash
-# update-rc.d firewall defaults
-# /etc/init.d/firewall start
+# update-rc.d fwpmnh defaults
+# /etc/init.d/fwpmnh start
 ```
