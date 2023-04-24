@@ -78,7 +78,7 @@ RemainAfterExit=yes
 
 ExecStart=/bin/bash /etc/firewall/firewall.sh start
 ExecStop=/bin/bash /etc/firewall/firewall.sh stop
-ExecReload=/bin/bash /etc/fwpmnh/firewall.sh restart
+ExecReload=/bin/bash /etc/firewall/firewall.sh restart
 
 
 [Install]
@@ -87,9 +87,9 @@ WantedBy=multi-user.target
 
 -Enable and start the service:
 ```bash
-# systemctl enable fwpmnh.service
-# systemctl start fwpmnh.service
-# systemctl status fwpmnh.service
+# systemctl enable firewall.service
+# systemctl start firewall.service
+# systemctl status firewall.service
 ```
  
 
@@ -97,7 +97,7 @@ WantedBy=multi-user.target
 
 -Create systemd service file:
 ```bash
-# vi /lib/systemd/system/fwpmnh.service
+# vi /lib/systemd/system/firewall.service
 ```
 
 ```bash
@@ -114,7 +114,7 @@ RemainAfterExit=yes
 
 ExecStart=/bin/bash /etc/firewall/firewall.sh start
 ExecStop=/bin/bash /etc/firewall/firewall.sh stop
-ExecReload=/bin/bash /etc/fwpmnh/firewall.sh restart
+ExecReload=/bin/bash /etc/firewall/firewall.sh restart
 
 
 [Install]
@@ -133,7 +133,7 @@ WantedBy=multi-user.target
 
 -Create a symbolic link:
 ```bash
-# ln -s /etc/fwpmnh/firewall.sh /etc/init.d/firewall
+# ln -s /etc/firewall/firewall.sh /etc/init.d/firewall
 ```
 
 -Enable and start the service:
