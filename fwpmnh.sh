@@ -33,13 +33,13 @@ LO_IP="127.0.0.0/8"
 ALL="0.0.0.0/0"
 
 # Local services rules file
-SERVICES_SCRIPT="/etc/firewall/services"
+SERVICES_SCRIPT="/etc/fwpmnh/services"
 
 # Management rules file
-MGMT_SCRIPT="/etc/firewall/mgmt"
+MGMT_SCRIPT="/etc/fwpmnh/mgmt"
 
 # Local parameters file
-LOCAL_PARAM="/etc/firewall/local"
+LOCAL_PARAM="/etc/fwpmnh/local"
 
 #--------------------------------COLORS--------------------------------------------------------
 NOCOLOR='\033[0m'
@@ -62,7 +62,7 @@ WHITE='\033[1;37m'
 #---------------------------------------------------------------------------------------------
 
 HELP() {
-        echo -e " * Firewall\nUsage: firewall [option]\n\nOPTIONS:\nstart   - Create set of iptables rules according to scripts in /etc/firewall.\nstop    - Deletes all iptables rules, 'stoping' the firewall. Obs: Be careful! This will set the default action to 'ACCEPT ALL'!\nrestart - Deletes all iptables rules, zeroing the counters, and then recreates them according to scripts in /etc/firewall.\nstatus  - Show all iptables rules.\nversion - Shows this script version number\nhelp    - Show this information."
+        echo -e " * Firewall\nUsage: fwpmnh [option]\n\nOPTIONS:\nstart   - Create set of iptables rules according to scripts in /etc/fwpmnh.\nstop    - Deletes all iptables rules, 'stoping' the firewall. Obs: Be careful! This will set the default action to 'ACCEPT ALL'!\nrestart - Deletes all iptables rules, zeroing the counters, and then recreates them according to scripts in /etc/firewall.\nstatus  - Show all iptables rules.\nversion - Shows this script version number\nhelp    - Show this information."
 }
 
 VERSION() {
