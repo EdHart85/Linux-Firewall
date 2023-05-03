@@ -1,22 +1,19 @@
 ##############################################################################################
-#                       STANDARD FIREWALL SCRIPT
+#                       FWPMNH  - LOCAL SERVICES RULES
 #
-#       Developed by: Eduardo Hartmann (https://github.com/EdHart85)
+#       Developed by: Eduardo Hartmann
 #
 #       Licensed under the GNU General Public License v3.0
 #
+#       Novo Hamburgo-RS,Brazil
 ##############################################################################################
 
 ## ADJUST IT ACCORDING TO YOUR NEEDS ##
 
 echo -e "  $LIGHTGREEN-Setting local services rules..."
 
-# Zabbix monitoring
-echo -e "  $LIGHTGREEN--Zabbix Agent"
-$IPTABLES -A INPUT -s 192.0.2.100/32 -p tcp --dport 10050 -j ACCEPT        # Zabbix Agent
-
-# echo -e "  $LIGHTGREEN--Apache"
-$IPTABLES -A INPUT -s $ALL -p tcp --dport 80  -j ACCEPT # HTTP
-$IPTABLES -A INPUT -s $ALL -p tcp --dport 443 -j ACCEPT # HTTPS
+# echo -e "  $LIGHTGREEN--Nginx"
+# $IPTABLES -A INPUT -s $ALL -p tcp --dport 80  -j ACCEPT # HTTP
+# $IPTABLES -A INPUT -s $ALL -p tcp --dport 443 -j ACCEPT # HTTPS
 
 echo -e " $GREEN* OK"
