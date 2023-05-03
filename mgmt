@@ -1,19 +1,29 @@
 ##############################################################################################
-#                       STANDARD FIREWALL SCRIPT
+#                       FWPMNH  - SERVER MANAGEMENT RULES
 #
-#       Developed by: Eduardo Hartmann (https://github.com/EdHart85)
+#       Developed by: Eduardo Hartmann
 #
 #       Licensed under the GNU General Public License v3.0
 #
+#       Novo Hamburgo-RS,Brazil
 ##############################################################################################
+
+CA_3ASETID="10.30.31.0/24"
+VPN_ADMINS="10.10.5.0/24"
+ZABBIX_SERVER="10.0.1.85/32"
 
 echo -e "  $LIGHTGREEN-Setting management rules..."
 
 # Allow ping from anywhere
 $IPTABLES -A INPUT -s $ALL -p icmp --icmp-type 8 -j ACCEPT
 
-# SSH access (adjust it according to your needs)
+# Allow Zabbix client/server communication
+$IPTABLES -A INPUT -s $ZABBIX_SERVER -p tcp --dport 10050 -j ACCEPT
+
+# SSH access
 echo -e "  $LIGHTGREEN--SSH"
-$IPTABLES -A INPUT -s 192.0.2.0/24 -p tcp --dport 22 -j ACCEPT   # SSH
+$IPTABLES -A INPUT -s $CA_3ASETID -p tcp --dport 22 -j ACCEPT   # SSH
+$IPTABLES -A INPUT -s $VPN_ADMINS -p tcp --dport 22 -j ACCEPT   # SSH
+
 
 echo -e " $GREEN* OK"
