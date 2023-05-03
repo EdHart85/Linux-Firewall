@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################################################################################
-#                       FWPMNH  - SERVER MANAGEMENT RULES
+#                       FWPMNH  - MAIN FIREWALL RULES
 #
 #       Developed by: Eduardo Hartmann
 #
@@ -18,7 +18,7 @@
 # MM    = Month
 # DD    = Day
 # SQ    = Sequential number
-FWVERSION="2022081901"
+FWVERSION="2023050301"
 
 #--------------------------------VARIABLES----------------------------------------------------
 
