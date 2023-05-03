@@ -11,10 +11,6 @@
   * [Debian 5, 6 and 7](#debian-5-6-and-7)
 <!--te-->
 
-<h2>Observations</h2>
-
-I developed this scripts for my own use where I work, that's why you'll see the word 'fwpmnh' instead of 'firewall'. I recommend you adjust it according to your enviroment.
-
 <h2>Prerequisites</h2>
 
 These scripts were developed using IPtables.
