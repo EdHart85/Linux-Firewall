@@ -1,10 +1,11 @@
 ##############################################################################################
-#                       STANDARD FIREWALL SCRIPT
+#                       FWPMNH  - SERVER MANAGEMENT RULES
 #
-#       Developed by: Eduardo Hartmann (https://github.com/EdHart85)
+#       Developed by: Eduardo Hartmann
 #
 #       Licensed under the GNU General Public License v3.0
 #
+#       Novo Hamburgo-RS,Brazil
 ##############################################################################################
 
 # Remember to customize this setting according to your server
