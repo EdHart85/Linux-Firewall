@@ -40,7 +40,7 @@ Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything her
 -Adjust permissions:
 ```bash
 # chmod 750 /etc/fwpmnh
-# chmod 750 /etc/fwpmnh/fwpmnh.sh
+# chmod 750 /etc/fwpmnh/fwpmnh
 # chmod 640 /etc/fwpmnh/local
 # chmod 640 /etc/fwpmnh/mgmt
 # chmod 640 /etc/fwpmnh/services
@@ -48,7 +48,7 @@ Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything her
 
  -Create symbolic link:
 ```bash
-# ln -s /etc/fwpmnh/fwpmnh.sh /usr/sbin/fwpmnh
+# ln -s /etc/fwpmnh/fwpmnh /usr/sbin/fwpmnh
 ```
 
 -Check your network interface name (Ex: ens192, eth0, etc) and broadcast address and then update the respective variable in the "local" file.
@@ -78,9 +78,9 @@ Type=oneshot
 # Since there is no continous running process, this tells systemd to consider this service up once it has started
 RemainAfterExit=yes
 
-ExecStart=/bin/bash /etc/fwpmnh/fwpmnh.sh start
-ExecStop=/bin/bash /etc/fwpmnh/fwpmnh.sh stop
-ExecReload=/bin/bash /etc/fwpmnh/fwpmnh.sh restart
+ExecStart=/bin/bash /etc/fwpmnh/fwpmnh start
+ExecStop=/bin/bash /etc/fwpmnh/fwpmnh stop
+ExecReload=/bin/bash /etc/fwpmnh/fwpmnh restart
 
 
 [Install]
@@ -114,9 +114,9 @@ Type=oneshot
 # Since there is no continous running process, this tells systemd to consider this service up once it has started
 RemainAfterExit=yes
 
-ExecStart=/bin/bash /etc/fwpmnh/fwpmnh.sh start
-ExecStop=/bin/bash /etc/fwpmnh/fwpmnh.sh stop
-ExecReload=/bin/bash /etc/fwpmnh/fwpmnh.sh restart
+ExecStart=/bin/bash /etc/fwpmnh/fwpmnh start
+ExecStop=/bin/bash /etc/fwpmnh/fwpmnh stop
+ExecReload=/bin/bash /etc/fwpmnh/fwpmnh restart
 
 
 [Install]
@@ -135,7 +135,7 @@ WantedBy=multi-user.target
 
 -Create a symbolic link:
 ```bash
-# ln -s /etc/fwpmnh/fwpmnh.sh /etc/init.d/fwpmnh
+# ln -s /etc/fwpmnh/fwpmnh /etc/init.d/fwpmnh
 ```
 
 -Enable and start the service:
