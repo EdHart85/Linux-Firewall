@@ -1,13 +1,15 @@
 #!/bin/bash
 
 ##############################################################################################
-#                       STANDARD FIREWALL SCRIPT
-#       Developed by:
-#               Eduardo Hartmann (https://github.com/EdHart85)
+#                       FWPMNH  - SERVER MANAGEMENT RULES
 #
-#       Novo Hamburgo-RS, Brazil  -  August/2022
+#       Developed by: Eduardo Hartmann
 #
+#       Licensed under the GNU General Public License v3.0
+#
+#       Novo Hamburgo-RS,Brazil
 ##############################################################################################
+
 
 # SCRIPT VERSION - Remember to update this number every time this script is altered.
 # Format: YYYYMMDDSQ
