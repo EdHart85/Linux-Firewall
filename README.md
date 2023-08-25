@@ -6,7 +6,7 @@
 <!--ts-->
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-  * [Debian 9, 10 and 11](#debian-9-10-and-11)
+  * [Debian 9, 10, 11 and 12](#debian-9-10-11-and-12)
   * [Debian 8](#debian-8)
   * [Debian 5, 6 and 7](#debian-5-6-and-7)
 <!--te-->
@@ -59,7 +59,7 @@ Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything her
 
  
 
-<h3>Debian 9, 10 and 11</h3>
+<h3>Debian 9, 10, 11 and 12</h3>
 
 -Create systemd service file:
 ```bash
