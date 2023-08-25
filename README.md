@@ -16,9 +16,9 @@
 These scripts were developed using IPtables.
 Yes, I know it's deprecated, that I should be using nftables, etc but I didn't have the time to study it yet. Sorry (not sorry!).
 
-You must have IPtables available on your server for these scripts to work. If you don't, just have it installed:
+You must have IPtables and Git available on your server for these scripts to work. If you don't, just have them installed:
 ```bash
-apt install iptables
+apt install iptables git
 ```
 
 Obs: I'm using Debian (best GNU/Linux distro, if you ask me!), so everything here will assume that you are using it too.
